@@ -11,11 +11,11 @@ jobs:
       # Checkout is necessary here due to referencing a local action.
       # It's also necessary when using the 'config-from-file' option.
       # Otherwise, avoid using checkout to keep this workflow fast.
-      - uses: actions/checkout@v2
+      # - uses: actions/checkout@v2
 
       # Basic configuration
       - name: Slash Command Dispatch
-        uses: ./
+        uses: peter-evans/slash-command-dispatch@v2
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           commands: |
