@@ -1,16 +1,11 @@
-name: Slash Command Dispatch
+name: run-cmd-command
 on:
-  issue_comment:
-    types: [created]
+  repository_dispatch:
+    types: [run-cmd-command]
 jobs:
-  slashCommandDispatch:
+  runCmd:
     runs-on: ubuntu-latest
     steps:
-      - name: Slash Command Dispatch
-        uses: peter-evans/slash-command-dispatch@v2
-        with:
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          commands: run-cmd
-          repository: chosh31/slash-command-processor
+      - name: Run Cmd
         run: |
           echo "Run Command!"
