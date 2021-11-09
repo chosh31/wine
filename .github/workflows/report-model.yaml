@@ -3,7 +3,7 @@ on:
   repository_dispatch:
     types: [report-model-command]
 jobs:
-  runCmd:
+  reportModel:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
