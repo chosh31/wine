@@ -20,5 +20,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commands: |
             run-cmd
+            report-model
           permission: none
           issue-type: pull-request
