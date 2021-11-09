@@ -1,17 +1,24 @@
-name: run-cmd-command
+name: Slash Command Dispatch
 on:
-  repository_dispatch:
-    types: [run-cmd-command]
+  issue_comment:
+    # Type "edited" added here for test purposes. Where possible, avoid 
+    # using to prevent processing unnecessary events.
+    types: [created, edited]
 jobs:
-  runCmd:
+  slashCommandDispatch:
     runs-on: ubuntu-latest
     steps:
-      - name: Add reaction
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          comment-id: ${{ github.event.client_payload.github.payload.comment.id }}
-          reaction-type: hooray
+      # Checkout is necessary here due to referencing a local action.
+      # It's also necessary when using the 'config-from-file' option.
+      # Otherwise, avoid using checkout to keep this workflow fast.
+      - uses: actions/checkout@v2
 
-      - name: Run Cmd
-        run: |
-          echo "Run Command!"
+      # Basic configuration
+      - name: Slash Command Dispatch
+        uses: ./
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          commands: |
+            run-cmd
+          permission: none
+          issue-type: pull-request
